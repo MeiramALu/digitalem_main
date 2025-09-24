@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block nav %}
+<!-- Hero 4 - Bootstrap Brain Component -->
+<section class="bg-primary" data-bs-theme="dark">
+  <div class="container-fluid overflow-hidden">
+    <div class="row">
+      <div class="col-12 col-md-6 order-1 order-md-0 align-self-md-end">
+        <div class="row py-3 py-sm-5 py-xl-9 bsb-section-mt-md-1 justify-content-sm-center">
+          <div class="col-12 col-sm-10">
+            <h1 class="display-2 fw-bolder mb-4 text-white">{{ project.name }}</h1>
+            <div class="row">
+              <div class="col-12 col-xxl-8">
+                <p class="fs-5 mb-0 text-secondary">{{project.description|safe}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 p-0">
+        <figure class="bsb-overlay-figure w-100 h-100 m-0" style="--bsb-overlay-figure-opacity: .3">
+          <img class="img-fluid w-100 h-100 object-fit-cover" loading="lazy" src="{% static 'assets/img/hero/service-img-1.webp' %}" alt="">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock nav %}
+{% block main %}
+  <!-- how section -->
+  <section class="py-5 py-xl-8 bsb-section-py-xxl-1">
+    <div class="container overflow-hidden">
+      {{ project.content|safe }}
+    </div>
+  </section>
+{% endblock main %}

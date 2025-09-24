@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block nav %}
+<!-- Hero 4 - Bootstrap Brain Component -->
+<section class="bg-primary" data-bs-theme="dark">
+  <div class="container-fluid overflow-hidden">
+    <div class="row">
+      <div class="col-12 col-md-6 order-1 order-md-0 align-self-md-end">
+        <div class="row py-3 py-sm-5 py-xl-9 bsb-section-mt-md-1 justify-content-sm-center">
+          <div class="col-12 col-sm-10">
+            <h1 class="display-2 fw-bolder mb-4 text-white">Наши лаборатории</h1>
+            <div class="row">
+              <div class="col-12 col-xxl-8">
+                <p class="fs-5 mb-0 text-secondary">Мы обеспечиваем более персонализированный опыт, адаптированный к уникальным потребностям каждого клиента.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 p-0">
+        <figure class="bsb-overlay-figure w-100 h-100 m-0" style="--bsb-overlay-figure-opacity: .3">
+          <img class="img-fluid w-100 h-100 object-fit-cover" loading="lazy" src="{% static 'assets/img/hero/service-img-1.webp' %}" alt="">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock nav %}
+{% block main %}
+<section class="py-5 py-xl-8 bsb-section-py-xxl-1">
+  <div class="container mb-5 mb-md-6 mb-xl-10">
+    <div class="row justify-content-md-center">
+      <div class="col-12 text-center">
+        <h3 class="fs-6 text-secondary mb-2 text-uppercase">Чем мы занимаемся</h3>
+        <h2 class="display-4 fw-bold mb-0">Это список наших специализированных лабораторий</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="container overflow-hidden">
+    <div class="row gy-4 gy-md-0 gx-xxl-5">
+      {% for lab in labs %}
+      <div class="col-12 col-md-4">
+        <div class="card bsb-tpl-bg-lotion bsb-tpl-border-lg-cyan">
+          <div class="card-body text-center p-4 p-xxl-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" fill="currentColor" class="bi bi-phone-flip text-primary mb-8" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v6a.5.5 0 0 1-1 0V2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v6a.5.5 0 0 1-1 0V2a1 1 0 0 0-1-1Zm1 13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a.5.5 0 0 0-1 0v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2a.5.5 0 0 0-1 0v2ZM1.713 7.954a.5.5 0 1 0-.419-.908c-.347.16-.654.348-.882.57C.184 7.842 0 8.139 0 8.5c0 .546.408.94.823 1.201.44.278 1.043.51 1.745.696C3.978 10.773 5.898 11 8 11c.099 0 .197 0 .294-.002l-1.148 1.148a.5.5 0 0 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2a.5.5 0 1 0-.708.708l1.145 1.144L8 10c-2.04 0-3.87-.221-5.174-.569-.656-.175-1.151-.374-1.47-.575C1.012 8.639 1 8.506 1 8.5c0-.003 0-.059.112-.17.115-.112.31-.242.6-.376Zm12.993-.908a.5.5 0 0 0-.419.908c.292.134.486.264.6.377.113.11.113.166.113.169 0 .003 0 .065-.13.187-.132.122-.352.26-.677.4-.645.28-1.596.523-2.763.687a.5.5 0 0 0 .14.99c1.212-.17 2.26-.43 3.02-.758.38-.164.713-.357.96-.587.246-.229.45-.537.45-.919 0-.362-.184-.66-.412-.883-.228-.223-.535-.411-.882-.571ZM7.5 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1Z" />
+            </svg>
+            <h4 class="fw-bold mb-4">{{lab.name}}</h4>
+            <p class="mb-4 text-secondary">{{lab.description|safe}}</p>
+            <a href="{% url 'lab' lab.slug %}" class="fw-bold text-decoration-none link-primary">
+              Подробнее
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+{% endblock main %}

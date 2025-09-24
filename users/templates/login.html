@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block nav %}
+<!-- Hero 4 - Bootstrap Brain Component -->
+<section class="bg-primary" data-bs-theme="dark">
+    <div class="container-fluid overflow-hidden">
+      <div class="row">
+        <div class="col-12 col-md-6 order-1 order-md-0 align-self-md-end">
+          <div class="row py-3 py-sm-5 py-xl-9 bsb-section-mt-md-1 justify-content-sm-center">
+            <div class="col-12 col-sm-10">
+              <h1 class="display-2 fw-bolder mb-4 text-white">Авторизация</h1>
+              <div class="row">
+                <div class="col-12 col-xxl-8">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 p-0">
+          <figure class="bsb-overlay-figure w-100 h-100 m-0" style="--bsb-overlay-figure-opacity: .3">
+            <img class="img-fluid w-100 h-100 object-fit-cover" loading="lazy" src="{% static 'assets/img/hero/contact-img-1.webp' %}" alt="">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock nav %}
+{% block main %}
+    <section class=" py-xl-8 ">
+        
+  
+        <div class="container overflow-hidden">
+          <div class="row gy-4 gy-md-0 gx-xxl-5">
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="row gy-4 gy-xl-5 p-4 p-xl-5">
+                  <div class="col-12">
+                    <label for="fullname" class="form-label">Имя пользователя <span class="text-danger">*</span></label>
+                    {{form.username}}
+                  </div>
+                  <div class="col-12">
+                    <label for="password" class="form-label">Пароль <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      {{form.password}}
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="d-grid">
+                      <button class="btn btn-primary btn-lg" type="submit">Войти</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+    </section>
+
+{% endblock main %}
+
