@@ -1,11 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 
-# Правильный импорт
 from . import views
 
 urlpatterns = [
-    # Укажите views. перед каждой функцией
     path('', views.index, name='index'),
     path('how/', views.how, name='how'),
     path('how/<slug:lab_slug>/', views.lab, name='lab'),

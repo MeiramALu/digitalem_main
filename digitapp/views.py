@@ -1,14 +1,17 @@
+# views.py (исправленная версия)
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .forms import *
-from .models import *
 import random
+from django.contrib import messages
+
+from .models import Lab, Field, Project, TeamMember, Application, Mailing, SuccessFact
 
 
 def index(request):
     labs = Lab.objects.all()
-    fields = Field.objects.all() 
-    
+    fields = Field.objects.all()
+
     best_projects = Project.objects.all().select_related('lab')[:3]
     context = {
         'all_fields': fields,
@@ -29,10 +32,11 @@ def lab(request, lab_slug):
         'lab_fields': lab_fields
     }
     return render(request, 'lab.html', context)
+
+
 def projects(request, lab_slug, field_slug):
     lab = Lab.objects.get(slug=lab_slug)
     field = Field.objects.get(slug=field_slug)
-
     projects = Project.objects.filter(lab=lab, field=field)
     context = {
         'projects': projects,
@@ -40,6 +44,8 @@ def projects(request, lab_slug, field_slug):
         'field': field,
     }
     return render(request, 'projects.html', context)
+
+
 def all_projects(request, lab_slug):
     lab = Lab.objects.get(slug=lab_slug)
     projects = Project.objects.filter(lab=lab)
@@ -48,6 +54,7 @@ def all_projects(request, lab_slug):
         'lab': lab,
     }
     return render(request, 'all_projects.html', context)
+
 
 def project(request, lab_slug, field_slug, project_slug):
     lab = Lab.objects.get(slug=lab_slug)
@@ -63,15 +70,24 @@ def project(request, lab_slug, field_slug, project_slug):
 
 def about(request):
     labs = Lab.objects.all()
-    all_fields = Field.objects.all()
+    all_fields_list = list(Field.objects.all())
+    sample_size = min(len(all_fields_list), 6)
+    random_fields = random.sample(all_fields_list, sample_size)
+    success_facts = SuccessFact.objects.all()
+    team_members = TeamMember.objects.all()
+
     context = {
         'labs': labs,
-        'all_fields': random.sample(list(all_fields), 6)
+        'all_fields': random_fields,
+        'team_members': team_members,
+        'success_facts': success_facts,
     }
     return render(request, 'about.html', context)
 
+
 def contacts(request):
     return render(request, 'contacts.html')
+
 
 def contact_form(request):
     if request.method == 'POST':
@@ -82,7 +98,12 @@ def contact_form(request):
                                    message=request.POST['message'])
     return redirect('contacts')
 
+
 def mailing_form(request):
     if request.method == 'POST':
-        Mailing.objects.create(email=request.POST['email'])
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        email = request.POST.get('email')
+        if email:
+            Mailing.objects.create(email=email)
+            messages.success(request, 'Спасибо! Вы успешно подписались на рассылку.')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
